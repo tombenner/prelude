@@ -1,0 +1,12 @@
+defaults: &defaults
+  site_name: "Site Name"
+  site_slogan: "Site tagline"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
