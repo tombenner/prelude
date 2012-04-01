@@ -10,6 +10,7 @@ gem 'devise'
 gem 'activeadmin'
 gem 'friendly_id'
 gem 'settingslogic'
+gem 'paperclip', '~> 2.7'
 gem 'twitter-bootstrap-rails'
 
 # Gems used only for assets and not required
