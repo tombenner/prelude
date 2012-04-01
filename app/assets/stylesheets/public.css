@@ -1,0 +1,56 @@
+html, body {
+	height: 100%;
+}
+body ul {
+	margin-left:0;
+}
+body a, body a:link, body a:visited {
+	text-decoration:none;
+}
+li {
+	list-style:none;
+}
+label {
+	font-weight:bold;
+}
+body textarea {
+	width:250px;
+	height:50px;
+}
+.right {
+	float:right;
+}
+
+#wrap {min-height: 100%;}
+
+#main {
+	overflow: visible;
+	padding-bottom: 50px; /* must be same height as the footer */
+	padding-top: 60px;
+}
+.flash {
+    background-color: #FFFFCC;
+    border-radius: 7px 7px 7px 7px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+body .navbar-fixed-top {
+	z-index:999;
+}
+
+.footer {
+	position: relative;
+	margin-top: -50px; /* negative value of footer height */
+	height: 50px;
+	clear:both;
+	border: none;
+	padding: 0px;
+}
+.footer ul.nav {
+	margin:0 auto;
+	width:183px;
+	font-size:10px;
+}
+.footer ul.nav a {
+	text-decoration:none;
+}
