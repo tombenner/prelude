@@ -5,6 +5,10 @@
 // the compiled file.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require_tree .
+//= require module
+//= require_directory ./app
+//= require app_init
+//= require public
