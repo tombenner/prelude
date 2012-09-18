@@ -11,4 +11,3 @@
 //= require module
 //= require_directory ./app
 //= require app_init
-//= require public

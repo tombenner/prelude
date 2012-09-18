@@ -1,6 +1,6 @@
 defaults: &defaults
   site_name: "Site Name"
-  site_slogan: "Site tagline"
+  site_slogan: "Site slogan"
 
 development:
   <<: *defaults

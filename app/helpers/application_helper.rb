@@ -1,22 +1,20 @@
 module ApplicationHelper
-  def page_title(page_title)
+  def page_title(page_title=nil)
+    if page_title.nil?
+      return get_page_title
+    end
     @page_title = page_title
   end
   
-  def avatar(user, options={})
-    defaults = {
-      :class => 'avatar',
-      :div => true,
-      :link => false
-    }
-    options = defaults.merge(options)
-    html = image_tag(user.avatar.url(:thumb))
-    if options[:link]
-      html = link_to(html, profile_path(user))
+  def get_page_title
+    if !@page_title.blank?
+      separator = " | "
+      if @page_title.is_a?(Array)
+        @page_title = @page_title.reverse.join(separator)
+      end
+      "#{@page_title}#{separator}#{SiteSettings.site_name}"
+    else
+      SiteSettings.site_name
     end
-    if options[:div]
-      html = '<div class="'+options[:class]+'">'+html+'</div>'
-    end
-    html.html_safe
   end
 end

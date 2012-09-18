@@ -2,11 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title><%= SiteSettings.site_name %><%= ' | '+@page_title if @page_title %></title>
+    <title><%= page_title %></title>
     <%= stylesheet_link_tag "application" %>
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-    <![endif]-->
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -20,7 +17,7 @@
             <ul class="nav pull-right">
               <% if user_signed_in? %>
                 <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= current_user.username %> <b class="caret"></b></a>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= current_user.to_s %> <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><%= link_to "Profile", profile_path(current_user) %></li>
                     <li><%= link_to "Settings", edit_user_registration_path %></li>
@@ -49,13 +46,13 @@
       <div class="container">
         <ul class="nav nav-pills">
           <li><%= link_to "About", "/about" %></li>
-          <li><%= link_to "Contact", "/contact" %></li>
-          <li><%= link_to "Privacy", "/privacy" %></li>
+          <li><%= link_to "Contact", "/about/contact" %></li>
+          <li><%= link_to "Terms", "/about/terms" %></li>
         </ul>
       </div>
     </div>
 
-  <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "application" %>
 
   </body>
 </html>

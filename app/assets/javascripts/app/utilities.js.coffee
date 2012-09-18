@@ -41,24 +41,106 @@
       dialogs.each () ->
         $(this).find('.ui-dialog-content').dialog('close')
         $(this).remove()
+
+    @modal: (classes, options={}) =>
+      defaults =
+        html: null
+        ajax: null
+        ajaxLoadingIndicator: true
+        modal: {}
+        removeOnHidden: true
+        width: null
+        height: null
+        fade: true
+      options = $.extend(defaults, options)
+      if options.fade
+        classes += ' fade'
+      html = '<div class="app-modal modal '+classes+'">'+options.html+'</div>'
+      $('body').append(html)
+      modal = $('.app-modal:last')
+      if options.ajax
+        if options.ajaxLoadingIndicator
+          original_width = modal.width()
+          @set_modal_width(modal, 150)
+          html = '
+            <div class="modal-header">
+              <h3><span class="loading-icon" style="margin-right:7px;"></span> Loading...</h3>
+            </div>
+          '
+          modal.html(html).modal(options.modal)
+          @set_modal_vertical_position(modal)
+          modal.load(options.ajax, =>
+            @set_modal_width(modal, original_width)
+            @set_modal_dimensions(modal, options.width, options.height)
+            modal.modal(options.modal)
+            @set_modal_vertical_position(modal)
+            if options['onLoad']
+              options['onLoad']()
+            if options.removeOnHidden
+              modal.on 'hidden', =>
+                modal.remove()
+          )
+        else
+          @set_modal_dimensions(modal, options.width, options.height)
+          modal.load(options.ajax, =>
+            modal.modal(options.modal)
+            @set_modal_vertical_position(modal)
+            if options['onLoad']
+              options['onLoad']()
+            if options.removeOnHidden
+              modal.on 'hidden', =>
+                modal.remove()
+          )
+      else
+        @set_modal_dimensions(modal, options.width, options.height)
+        modal.modal(options.modal)
+        @set_modal_vertical_position(modal)
+        if options['onLoad']
+          options['onLoad']()
+        if options.removeOnHidden
+          modal.on 'hidden', =>
+            modal.remove()
+
+    @remove_modals: (selector) =>
+      if (selector)
+        modals = $('.modal'+selector)
+      else
+        modals = $('.modal')
+      modals.each () ->
+        if $(this).is(':hidden')
+          $(this).remove()
+        else
+          $(this).on('hidden', ->
+            $(this).remove()
+          )
+          $(this).modal('hide')
+
+    @set_modal_dimensions: (modal, width, height) =>
+      @set_modal_width(modal, width)
+      @set_modal_height(modal, height)
+
+    @set_modal_width: (modal, width) =>
+      if !width
+        return
+      margin_right = -1*(width/2)
+      margin_left = margin_right + 30
+      modal.css('width', width+'px')
+      modal.css('margin-right', margin_right+'px')
+      modal.css('margin-left', margin_left+'px')
+
+    @set_modal_height: (modal, height) =>
+      if !height
+        return
+      modal.css('height', height+'px')
+
+    @set_modal_vertical_position: (modal) =>
+      modal.css(
+        'margin-top': ->
+          -($(this).height() / 2)
+      )
     
     @target: (e) =>
       $(e.currentTarget)
-
-    @validate_input: (id, field_title, rule='empty') =>
-      if rule == 'empty'
-        if not $.trim($('#'+id).val())
-          alert 'Please enter a value for '+field_title+'!'
-          $('#'+id).focus()
-          return false
-      return true
-    
-    @validate_inputs: (validations) =>
-      for validation in validations
-        rule = if validation[2] then validation[2] else 'empty'
-        if not @validate_input validation[0], validation[1], rule
-          return false
-      return true
 
     @on_input_delay: (input, fn, ms=400) =>
       input.keyup ->
