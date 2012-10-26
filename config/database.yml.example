@@ -1,0 +1,10 @@
+defaults: &defaults
+  adapter: mysql2
+  username: myusername
+  password: mypassword
+  host: localhost
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *defaults
+  database: mydatabase
