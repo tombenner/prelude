@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Allinone::Application.load_tasks
+Prelude::Application.load_tasks
