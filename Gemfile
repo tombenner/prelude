@@ -14,6 +14,7 @@ gem 'aws-sdk', '~> 1.3.4'
 gem 'twitter-bootstrap-rails'
 gem 'auto_strip_attributes', '~> 1.0'
 gem 'redcarpet'
+gem 'rails-backbone'
 
 # Gems used only for assets and not required
 # in production environments by default.
