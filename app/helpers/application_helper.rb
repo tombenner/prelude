@@ -17,4 +17,13 @@ module ApplicationHelper
       SiteSettings.site_name
     end
   end
+  
+  def truncate_to_space(string, length=100, options={})
+    defaults = {
+      :length => length,
+      :separator => ' '
+    }
+    options = defaults.merge(options)
+    truncate(string, options)
+  end
 end
